@@ -10,9 +10,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
 remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
+// Breadcrumbs are placed explicitly per-template (archive-product.php, inc/single-product.php)
+// instead of relying on this default hook, to avoid double-printing them.
+remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
 
 function hasna_wc_wrapper_start() {
-	echo '<main id="primary" class="hs-shop">';
+	echo '<main id="primary" class="hs-wc-main">';
 }
 add_action( 'woocommerce_before_main_content', 'hasna_wc_wrapper_start', 10 );
 
