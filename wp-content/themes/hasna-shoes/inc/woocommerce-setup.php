@@ -26,6 +26,14 @@ add_filter( 'loop_shop_columns', fn() => 4 );
 add_filter( 'loop_shop_per_page', fn() => 12 );
 
 /**
+ * Show "TND" (as in the approved design) rather than WooCommerce's default
+ * Tunisian Dinar glyph (د.ت) for the TND currency.
+ */
+add_filter( 'woocommerce_currency_symbol', function ( $symbol, $currency ) {
+	return 'TND' === $currency ? 'TND' : $symbol;
+}, 10, 2 );
+
+/**
  * Register the size/color attributes used by the catalog (created in M2 if missing),
  * so the store is usable even before the M2 milestone imports real products.
  */

@@ -88,11 +88,14 @@ Rationale for **not** defaulting to Elementor Pro: the brief marks it "only if r
 
 ## 6. WooCommerce data model
 
-- **Product type**: variable products (Size × Color where applicable), one product per shoe model (10 models from `produit/`).
-- **Categories**: High Heels, Sandals, Sneakers, Boots, New Collection, Promotions (per brief; models get mapped to the closest fit — sandals are the primary category given the source photography).
-- **Attributes**: `pa_taille` (size, e.g. 36/37/38/39/40), `pa_couleur` (color).
-- **Checkout**: guest checkout forced on, customer registration/login disabled, only Name / Phone / Address / City / Notes fields kept, only "Cash on Delivery" gateway enabled — all other core gateways disabled at the plugin level, not just hidden.
+- **Product type**: variable products, one size axis (`pa_taille`, 36-40), `pa_couleur` kept as an informational (non-variation) attribute since each of the 10 source photo sets only covers one color.
+- **Categories actually used**: Talons, Sandales, Confort, Plates (mapped from the real photography — all sandals/mules/heels, no sneakers or boots exist in the supplied photos, so those two brief-listed categories weren't fabricated), plus Nouveautés (every product, all newly added) and Promotions (the 2 products given a sale price).
+- **Checkout**: guest checkout forced on, registration/login disabled, only Name / Phone / Address / City / Notes fields kept, only Cash on Delivery enabled — enforced at the hook level (`inc/woocommerce-hooks.php`), verified end-to-end with a real test order (placed, confirmed, then deleted).
+- **Checkout page type**: switched from WooCommerce's default Cart/Checkout **blocks** to the classic `[woocommerce_cart]` / `[woocommerce_checkout]` **shortcodes** — the blocks use a separate fields API that ignores `woocommerce_checkout_fields`, so the guest/COD/trimmed-fields hooks silently didn't apply until this switch. Classic checkout also gives M3 direct template-override control for the pixel-matched design.
+- **Store visibility**: WooCommerce's "Coming soon" mode (new default as of WC 8.8+) was showing a placeholder on Shop/Product/Cart/Checkout; turned off (`woocommerce_coming_soon` = `no`) so the real store renders.
+- **Currency**: TND, comma decimal separator, 3 decimals, forced to display literal "TND" (design-accurate) instead of WooCommerce's default `د.ت` glyph for that currency code.
 - **Content status**: product names/prices/descriptions are placeholder content (explicitly flagged, French, TND pricing) pending the real catalog data from the site owner — never presented as final in the admin UI.
+- **⚠ Product photo provenance**: the supplied `produit/model N` photos are stock/reference images — at least 7 of the 10 show a *different* shoe brand's name printed on the insole or hardware (e.g. "Ellysee", "Erraves", "Avizah Shoes", "Kako Shoes"), only model 1 shows genuine Hasna Shoes branding. These are in use as placeholders so the catalog isn't empty, but **must be replaced with real Hasna-branded photography before launch** — publishing another brand's name on a live storefront is a real (not cosmetic) risk. Tracked for the M8 product-media pass.
 
 ## 7. Multilingual / RTL
 
