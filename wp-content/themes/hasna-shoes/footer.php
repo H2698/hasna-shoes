@@ -35,13 +35,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<a href="#tailles"><?php esc_html_e( 'Guide des tailles', 'hasna-shoes' ); ?></a>
 					<a href="#entretien"><?php esc_html_e( 'Entretien', 'hasna-shoes' ); ?></a>
 					<a href="#faq"><?php esc_html_e( 'FAQ', 'hasna-shoes' ); ?></a>
-					<a href="#contact"><?php esc_html_e( 'Nous contacter', 'hasna-shoes' ); ?></a>
+					<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php esc_html_e( 'Nous contacter', 'hasna-shoes' ); ?></a>
 				</div>
 
 				<div class="hs-footer__col">
 					<div class="hs-footer__heading"><?php esc_html_e( 'Contact', 'hasna-shoes' ); ?></div>
-					<span class="hs-footer__strong">26 000 000</span>
-					<span>contact@hasnashoes.tn</span>
+					<span class="hs-footer__strong"><?php echo esc_html( get_option( 'hasna_phone', '26 000 000' ) ); ?></span>
+					<span><?php echo esc_html( get_option( 'hasna_contact_email', 'contact@hasnashoes.tn' ) ); ?></span>
 					<div class="hs-footer__social">
 						<a href="#instagram">Instagram</a>
 						<a href="#facebook">Facebook</a>

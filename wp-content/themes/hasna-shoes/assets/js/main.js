@@ -16,7 +16,51 @@
 		initTestimonials();
 		initNewsletter();
 		initMobileNav();
+		initContactForm();
 	} );
+
+	function initContactForm() {
+		var form = document.querySelector( '[data-contact-form]' );
+		var msg = document.querySelector( '[data-contact-msg]' );
+		if ( ! form ) return;
+
+		form.addEventListener( 'submit', function ( e ) {
+			e.preventDefault();
+			var nonceField = form.querySelector( '#hasna_contact_nonce' );
+			var submitBtn = form.querySelector( 'button[type="submit"]' );
+
+			var body = new URLSearchParams();
+			body.set( 'action', 'hasna_contact_submit' );
+			body.set( 'name', form.querySelector( '#hs-c-name' ).value );
+			body.set( 'email', form.querySelector( '#hs-c-email' ).value );
+			body.set( 'phone', form.querySelector( '#hs-c-phone' ).value );
+			body.set( 'message', form.querySelector( '#hs-c-message' ).value );
+			body.set( 'nonce', nonceField ? nonceField.value : '' );
+
+			submitBtn.disabled = true;
+
+			fetch( hasnaSettings.ajaxUrl, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+				body: body.toString(),
+			} )
+				.then( function ( res ) { return res.json(); } )
+				.then( function ( data ) {
+					submitBtn.disabled = false;
+					if ( ! msg ) return;
+					msg.textContent = data && data.data ? data.data.message : '';
+					msg.className = 'hs-contact__msg ' + ( data && data.success ? 'is-success' : 'is-error' );
+					if ( data && data.success ) form.reset();
+				} )
+				.catch( function () {
+					submitBtn.disabled = false;
+					if ( msg ) {
+						msg.textContent = 'Une erreur est survenue, veuillez réessayer.';
+						msg.className = 'hs-contact__msg is-error';
+					}
+				} );
+		} );
+	}
 
 	function initMobileNav() {
 		var toggle = document.querySelector( '[data-mobile-nav-toggle]' );

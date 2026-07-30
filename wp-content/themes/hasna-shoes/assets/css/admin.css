@@ -1,0 +1,82 @@
+/* Hasna Shoes — custom admin dashboard (pixel source: Hasna Shoes Admin.dc.html) */
+
+#wpcontent { padding-left: 0; }
+.toplevel_page_hasna-dashboard #wpbody-content { padding-bottom: 0; }
+.hs-admin, .hs-settings { font-family: 'Inter', sans-serif; color: #222; }
+.hs-admin * { box-sizing: border-box; }
+.hs-admin { padding: 20px 20px 40px 0; }
+
+.hs-admin__stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 18px; margin-bottom: 22px; }
+.hs-stat-card { background: #fff; border: 1px solid #E9E2D8; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(34,26,15,.04); display: flex; flex-direction: column; gap: 10px; }
+.hs-stat-card__icon { width: 40px; height: 40px; border-radius: 10px; background: #F2E4C8; display: flex; align-items: center; justify-content: center; color: #B8873C; }
+.hs-stat-card__icon svg { width: 19px; height: 19px; }
+.hs-stat-card__label { font-size: 11px; font-weight: 700; letter-spacing: .8px; color: #8A7F6E; }
+.hs-stat-card__value { font-size: 24px; font-weight: 800; color: #222; margin-top: 4px; }
+.hs-stat-card--accent { background: linear-gradient(135deg,#F2E4C8,#EAD6AC); border-color: #DEC495; justify-content: center; }
+.hs-stat-card__icon--light { background: #fff; }
+.hs-stat-card__title { font-size: 14px; font-weight: 700; color: #222; line-height: 1.35; }
+.hs-stat-card__sub { font-size: 11.5px; color: #6E5B36; line-height: 1.5; }
+
+.hs-admin__cols { display: grid; grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr); gap: 22px; align-items: start; }
+.hs-admin__main, .hs-admin__side { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+
+.hs-panel { background: #fff; border: 1px solid #E9E2D8; border-radius: 12px; overflow: hidden; }
+.hs-panel--pad { padding: 20px 22px 8px; }
+.hs-panel__head { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; gap: 12px; }
+.hs-panel--pad .hs-panel__head { padding: 0 0 16px; }
+.hs-panel__title { font-size: 14px; font-weight: 800; letter-spacing: .5px; color: #222; }
+.hs-panel__title-sub { font-weight: 500; color: #8A7F6E; font-size: 11.5px; }
+.hs-panel__head a { font-size: 12.5px; font-weight: 600; color: #B8873C; text-decoration: none; }
+.hs-panel__head a:hover { color: #96702F; text-decoration: underline; }
+.hs-panel__more { display: block; text-align: center; font-size: 12.5px; font-weight: 600; margin-top: 14px; color: #B8873C; text-decoration: none; }
+.hs-panel__more:hover { text-decoration: underline; }
+.hs-panel__scroll { overflow-x: auto; }
+
+.hs-btn-gold { background: #B8873C; color: #fff !important; border: none; border-radius: 8px; padding: 10px 16px; font-size: 12.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; text-decoration: none !important; }
+.hs-btn-gold svg { width: 13px; height: 13px; }
+.hs-btn-gold:hover { background: #9E7433; color: #fff !important; }
+
+.hs-table { width: 100%; border-collapse: collapse; min-width: 620px; }
+.hs-table thead tr { border-top: 1px solid #E9E2D8; border-bottom: 1px solid #E9E2D8; background: #FBF8F3; }
+.hs-table th { text-align: left; padding: 10px 22px; font-size: 10.5px; font-weight: 700; letter-spacing: .6px; color: #8A7F6E; }
+.hs-table th:not(:first-child), .hs-table td:not(:first-child) { padding-left: 12px; }
+.hs-table td { padding: 14px 22px 14px 12px; font-size: 13px; color: #333; border-bottom: 1px solid #F0EAE0; }
+.hs-table td:first-child { padding-left: 22px; }
+.hs-table tbody tr:hover { background: #FBF8F3; }
+.hs-table__strong { font-weight: 600; color: #222; }
+.hs-table__muted { color: #777; }
+.hs-table__empty { text-align: center; color: #8A7F6E; padding: 30px !important; }
+.hs-table__product { display: flex; align-items: center; gap: 12px; }
+.hs-table__thumb { width: 46px; height: 46px; border-radius: 10px; overflow: hidden; flex-shrink: 0; background: #F5F0E8; display: block; }
+.hs-table__thumb img { width: 100%; height: 100%; object-fit: cover; }
+.hs-table__actions { display: flex; gap: 8px; }
+.hs-icon-action { width: 30px; height: 30px; border-radius: 8px; border: 1px solid #E9E2D8; display: flex; align-items: center; justify-content: center; color: #5B5148; text-decoration: none; }
+.hs-icon-action:hover { background: #F5EFE3; color: #5B5148; }
+.hs-icon-action svg { width: 14px; height: 14px; }
+
+.hs-pill { display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 11.5px; font-weight: 700; }
+.hs-badge { min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px; background: #D96C6C; color: #fff; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+
+.hs-chart { width: 100%; height: auto; display: block; }
+.hs-chart__line { stroke-dasharray: 1600; stroke-dashoffset: 1600; animation: hs-admin-draw 1.2s ease-out forwards; }
+@keyframes hs-admin-draw { to { stroke-dashoffset: 0; } }
+.hs-chart__labels { display: flex; justify-content: space-between; font-size: 10.5px; color: #8A7F6E; padding: 8px 0 14px; }
+
+.hs-activity__item { display: flex; gap: 12px; padding: 11px 0; border-bottom: 1px solid #F3EEE5; }
+.hs-activity__item:last-child { border-bottom: none; }
+.hs-activity__icon { width: 34px; height: 34px; border-radius: 50%; background: #F2E4C8; display: flex; align-items: center; justify-content: center; color: #B8873C; flex-shrink: 0; }
+.hs-activity__icon svg { width: 15px; height: 15px; }
+.hs-activity__body { flex: 1; min-width: 0; }
+.hs-activity__title { font-size: 12.5px; font-weight: 600; color: #222; }
+.hs-activity__sub { font-size: 11.5px; color: #8A7F6E; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hs-activity__time { font-size: 10.5px; color: #A79A87; white-space: nowrap; flex-shrink: 0; }
+
+.hs-quicklinks { display: flex; flex-direction: column; gap: 4px; }
+.hs-quicklinks .hs-panel__title { margin-bottom: 10px; }
+.hs-quicklinks a { padding: 10px 4px; border-bottom: 1px solid #F3EEE5; font-size: 13px; color: #333; text-decoration: none; }
+.hs-quicklinks a:last-child { border-bottom: none; }
+.hs-quicklinks a:hover { color: #B8873C; }
+
+@media (max-width: 960px) {
+	.hs-admin__cols { grid-template-columns: 1fr; }
+}
