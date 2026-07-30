@@ -82,6 +82,10 @@ function hasna_enqueue_assets() {
 		wp_enqueue_script( 'hasna-hero', HASNA_THEME_URI . '/assets/js/hero.js', array( 'gsap', 'gsap-scrolltrigger' ), HASNA_THEME_VERSION, true );
 	}
 
+	if ( function_exists( 'is_product' ) && is_product() ) {
+		wp_enqueue_script( 'hasna-shop', HASNA_THEME_URI . '/assets/js/shop.js', array( 'jquery', 'wc-add-to-cart-variation' ), HASNA_THEME_VERSION, true );
+	}
+
 	wp_localize_script( 'hasna-main', 'hasnaSettings', array(
 		'ajaxUrl'         => admin_url( 'admin-ajax.php' ),
 		'nonce'           => wp_create_nonce( 'hasna_ajax' ),
@@ -108,3 +112,4 @@ require HASNA_THEME_DIR . '/inc/woocommerce-setup.php';
 require HASNA_THEME_DIR . '/inc/woocommerce-hooks.php';
 require HASNA_THEME_DIR . '/inc/template-tags.php';
 require HASNA_THEME_DIR . '/inc/newsletter.php';
+require HASNA_THEME_DIR . '/inc/single-product.php';
