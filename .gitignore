@@ -1,0 +1,45 @@
+# WordPress core (vendored dependency — installed via the setup steps in README.md, not versioned here)
+/wp-admin/
+/wp-includes/
+/index.php
+/license.txt
+/readme.html
+/wp-activate.php
+/wp-blog-header.php
+/wp-comments-post.php
+/wp-config-sample.php
+/wp-cron.php
+/wp-links-opml.php
+/wp-load.php
+/wp-login.php
+/wp-mail.php
+/wp-settings.php
+/wp-signup.php
+/wp-trackback.php
+/xmlrpc.php
+/wp-*.php
+
+# Environment-specific / secrets — never commit
+/wp-config.php
+/.htaccess
+
+# Third-party plugins (vendored dependencies — see README.md for the required plugin list)
+/wp-content/plugins/*
+!/wp-content/plugins/.gitkeep
+
+# Non-custom themes bundled with WP core
+/wp-content/themes/twenty*/
+
+# User-generated / environment-specific content
+/wp-content/uploads/
+/wp-content/upgrade/
+/wp-content/cache/
+/wp-content/backup*/
+/wp-content/*.log
+/wp-content/debug.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
