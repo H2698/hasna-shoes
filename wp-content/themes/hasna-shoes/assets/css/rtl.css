@@ -1,0 +1,15 @@
+/* Arabic (RTL) overrides. No Arabic mockup exists — this mirrors the LTR design
+   using the same tokens; verified visually at M7 QA. */
+
+html[dir="rtl"] body { direction: rtl; }
+
+html[dir="rtl"] .hs-icon-parcel::after { right: auto; left: -7px; }
+html[dir="rtl"] .hs-cart-count { right: auto; left: -9px; }
+html[dir="rtl"] .hs-rail-nav--prev { left: auto; right: -14px; }
+html[dir="rtl"] .hs-rail-nav--next { right: auto; left: -14px; }
+html[dir="rtl"] .hs-hero__navbtn .hs-icon,
+html[dir="rtl"] .hs-rail-nav .hs-icon { transform: scaleX(-1); }
+html[dir="rtl"] .hs-product-card__wish { right: auto; left: 10px; }
+html[dir="rtl"] .hs-product-card__badge { left: auto; right: 0; }
+html[dir="rtl"] .hs-testimonial footer { direction: rtl; }
+html[dir="rtl"] .hs-newsletter__form { direction: rtl; }
