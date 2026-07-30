@@ -113,3 +113,6 @@ require HASNA_THEME_DIR . '/inc/woocommerce-hooks.php';
 require HASNA_THEME_DIR . '/inc/template-tags.php';
 require HASNA_THEME_DIR . '/inc/newsletter.php';
 require HASNA_THEME_DIR . '/inc/single-product.php';
+require HASNA_THEME_DIR . '/inc/contact.php';
+require HASNA_THEME_DIR . '/inc/admin-dashboard.php';
+require HASNA_THEME_DIR . '/inc/admin-settings.php';

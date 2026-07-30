@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<span class="hs-topbar__center"><?php esc_html_e( 'Paiement à la livraison', 'hasna-shoes' ); ?></span>
 		<div class="hs-topbar__item hs-topbar__item--end">
 			<span class="hs-icon-headset" aria-hidden="true"></span>
-			<span><?php esc_html_e( 'Service client : 26 000 000', 'hasna-shoes' ); ?></span>
+			<span><?php echo esc_html__( 'Service client : ', 'hasna-shoes' ) . esc_html( get_option( 'hasna_phone', '26 000 000' ) ); ?></span>
 		</div>
 	</div>
 

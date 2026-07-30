@@ -182,7 +182,11 @@ $hero_slides = array(
 			<a href="#produits" class="hs-btn hs-btn--outline"><?php esc_html_e( 'Découvrir', 'hasna-shoes' ); ?></a>
 		</div>
 		<div class="hs-banner__image">
-			<img src="<?php echo esc_url( HASNA_THEME_URI . '/assets/img/banner/trio.webp' ); ?>" alt="<?php esc_attr_e( 'Trio de chaussures Hasna Shoes', 'hasna-shoes' ); ?>" loading="lazy">
+			<?php
+			$banner_id  = (int) get_option( 'hasna_banner_image_id' );
+			$banner_src = $banner_id ? wp_get_attachment_image_url( $banner_id, 'large' ) : HASNA_THEME_URI . '/assets/img/banner/trio.webp';
+			?>
+			<img src="<?php echo esc_url( $banner_src ); ?>" alt="<?php esc_attr_e( 'Trio de chaussures Hasna Shoes', 'hasna-shoes' ); ?>" loading="lazy">
 		</div>
 		<div class="hs-banner__right">
 			<h2><?php esc_html_e( 'Confort & style', 'hasna-shoes' ); ?><br><span><?php esc_html_e( 'pour toutes vos occasions', 'hasna-shoes' ); ?></span></h2>
