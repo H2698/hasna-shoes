@@ -16,6 +16,13 @@ add_filter( 'pre_option_woocommerce_enable_myaccount_registration', fn() => 'no'
 add_filter( 'pre_option_woocommerce_enable_signup_and_login_from_checkout', fn() => 'no' );
 
 /**
+ * French copy for the only enabled payment gateway.
+ */
+add_filter( 'woocommerce_gateway_description', function ( $description, $gateway_id ) {
+	return 'cod' === $gateway_id ? __( 'Payez en espèces à la réception de votre commande.', 'hasna-shoes' ) : $description;
+}, 10, 2 );
+
+/**
  * Only Cash on Delivery may ever be an available gateway, regardless of what's
  * installed/configured — a defense-in-depth check, not just an admin setting.
  */
