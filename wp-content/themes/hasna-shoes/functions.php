@@ -43,21 +43,37 @@ function hasna_setup() {
 add_action( 'after_setup_theme', 'hasna_setup' );
 
 /**
+ * Real destinations for the primary nav (used by both the desktop fallback
+ * nav and the mobile nav, until the site owner sets a menu in Appearance ->
+ * Menus). "Femme" and "Collections" both point to the shop — same as the
+ * approved design, which linked both to the homepage's single categories
+ * section; there's no separate "collections" taxonomy to send them to.
+ */
+function hasna_primary_nav_items() {
+	$shop_url  = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' );
+	$new_term  = get_term_by( 'slug', 'nouveautes', 'product_cat' );
+	$new_url   = ( $new_term && ! is_wp_error( $new_term ) ) ? get_term_link( $new_term ) : $shop_url;
+
+	return array(
+		array( home_url( '/' ), __( 'Accueil', 'hasna-shoes' ) ),
+		array( $shop_url, __( 'Femme', 'hasna-shoes' ) ),
+		array( $shop_url, __( 'Collections', 'hasna-shoes' ) ),
+		array( $new_url, __( 'Nouveautés', 'hasna-shoes' ) ),
+		array( home_url( '/contact/' ), __( 'Contact', 'hasna-shoes' ) ),
+	);
+}
+
+/**
  * Default primary menu (used until the site owner sets one in
- * Appearance -> Menus; matches the approved design exactly).
+ * Appearance -> Menus; matches the approved design's layout exactly).
  */
 function hasna_nav_menu_fallback() {
+	$current_url = home_url( add_query_arg( array(), $GLOBALS['wp']->request ?? '' ) );
 	echo '<nav class="hs-nav" aria-label="' . esc_attr__( 'Navigation principale', 'hasna-shoes' ) . '">';
-	$items = array(
-		array( '#top', __( 'Accueil', 'hasna-shoes' ) ),
-		array( '#categories', __( 'Femme', 'hasna-shoes' ) ),
-		array( '#categories', __( 'Collections', 'hasna-shoes' ) ),
-		array( '#produits', __( 'Nouveautés', 'hasna-shoes' ) ),
-		array( '#contact', __( 'Contact', 'hasna-shoes' ) ),
-	);
-	foreach ( $items as $i => $item ) {
+	foreach ( hasna_primary_nav_items() as $item ) {
 		list( $href, $label ) = $item;
-		printf( '<a href="%s" class="%s">%s</a>', esc_url( $href ), 0 === $i ? 'is-current' : '', esc_html( $label ) );
+		$is_current = is_front_page() ? ( __( 'Accueil', 'hasna-shoes' ) === $label ) : ( untrailingslashit( $href ) === untrailingslashit( $current_url ) );
+		printf( '<a href="%s" class="%s">%s</a>', esc_url( $href ), $is_current ? 'is-current' : '', esc_html( $label ) );
 	}
 	echo '</nav>';
 }

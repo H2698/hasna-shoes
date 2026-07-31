@@ -30,6 +30,10 @@
 # Non-custom themes bundled with WP core
 /wp-content/themes/twenty*/
 
+# Downloaded language packs (core + plugin translations — reinstall via
+# Settings > General > Site Language, or wp_download_language_pack())
+/wp-content/languages/
+
 # User-generated / environment-specific content
 /wp-content/uploads/
 /wp-content/upgrade/

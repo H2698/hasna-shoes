@@ -53,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		?>
 
 		<div class="hs-header__actions">
-			<a href="#recherche" class="hs-icon-btn" aria-label="<?php esc_attr_e( 'Recherche', 'hasna-shoes' ); ?>"><?php echo hasna_icon( 'search' ); ?></a>
+			<button type="button" class="hs-icon-btn" data-search-toggle aria-expanded="false" aria-controls="hs-search-panel" aria-label="<?php esc_attr_e( 'Recherche', 'hasna-shoes' ); ?>"><?php echo hasna_icon( 'search' ); ?></button>
 			<a href="<?php echo esc_url( function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'myaccount' ) : '#compte' ); ?>" class="hs-icon-btn" aria-label="<?php esc_attr_e( 'Compte', 'hasna-shoes' ); ?>"><?php echo hasna_icon( 'account' ); ?></a>
 			<a href="<?php echo esc_url( function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : '#panier' ); ?>" class="hs-icon-btn hs-cart-link" aria-label="<?php esc_attr_e( 'Panier', 'hasna-shoes' ); ?>">
 				<?php echo hasna_icon( 'cart' ); ?>
@@ -64,6 +64,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</button>
 		</div>
 	</header>
+
+	<div id="hs-search-panel" class="hs-search-panel" data-search-panel hidden>
+		<form role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" class="hs-search-panel__form">
+			<?php echo hasna_icon( 'search' ); ?>
+			<input type="search" name="s" value="<?php echo esc_attr( get_search_query() ); ?>" placeholder="<?php esc_attr_e( 'Rechercher un produit…', 'hasna-shoes' ); ?>" autocomplete="off" data-search-input>
+			<input type="hidden" name="post_type" value="product">
+			<button type="button" class="hs-search-panel__close" data-search-close aria-label="<?php esc_attr_e( 'Fermer la recherche', 'hasna-shoes' ); ?>">&times;</button>
+		</form>
+	</div>
 
 	<div id="hs-mobile-nav" class="hs-mobile-nav" data-mobile-nav hidden>
 		<?php
@@ -76,13 +85,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			) );
 		} else {
 			echo '<ul class="hs-mobile-nav__list">';
-			foreach ( array(
-				array( '#top', __( 'Accueil', 'hasna-shoes' ) ),
-				array( '#categories', __( 'Femme', 'hasna-shoes' ) ),
-				array( '#categories', __( 'Collections', 'hasna-shoes' ) ),
-				array( '#produits', __( 'Nouveautés', 'hasna-shoes' ) ),
-				array( '#contact', __( 'Contact', 'hasna-shoes' ) ),
-			) as $item ) {
+			foreach ( hasna_primary_nav_items() as $item ) {
 				printf( '<li><a href="%s">%s</a></li>', esc_url( $item[0] ), esc_html( $item[1] ) );
 			}
 			echo '</ul>';
