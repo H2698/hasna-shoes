@@ -17,7 +17,35 @@
 		initNewsletter();
 		initMobileNav();
 		initContactForm();
+		initSearchPanel();
 	} );
+
+	function initSearchPanel() {
+		var toggle = document.querySelector( '[data-search-toggle]' );
+		var panel = document.querySelector( '[data-search-panel]' );
+		var closeBtn = document.querySelector( '[data-search-close]' );
+		var input = document.querySelector( '[data-search-input]' );
+		if ( ! toggle || ! panel ) return;
+
+		function close() {
+			toggle.setAttribute( 'aria-expanded', 'false' );
+			panel.hidden = true;
+		}
+		function open() {
+			toggle.setAttribute( 'aria-expanded', 'true' );
+			panel.hidden = false;
+			if ( input ) setTimeout( function () { input.focus(); }, 50 );
+		}
+
+		toggle.addEventListener( 'click', function () {
+			var expanded = toggle.getAttribute( 'aria-expanded' ) === 'true';
+			expanded ? close() : open();
+		} );
+		if ( closeBtn ) closeBtn.addEventListener( 'click', close );
+		document.addEventListener( 'keydown', function ( e ) {
+			if ( e.key === 'Escape' ) close();
+		} );
+	}
 
 	function initContactForm() {
 		var form = document.querySelector( '[data-contact-form]' );

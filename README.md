@@ -12,6 +12,7 @@ WordPress core and third-party plugins are not committed to this repo (they're v
 4. Copy `wp-config-sample.php` (from WordPress core) to `wp-config.php`, set `DB_NAME=hasna_shoes`, `$table_prefix = 'hs_';`, and generate fresh salts from https://api.wordpress.org/secret-key/1.1/salt/.
 5. Ensure Apache has `mod_rewrite` enabled and `AllowOverride All` for `htdocs`, then add the standard WordPress rewrite block to `.htaccess` (permalinks: `/%postname%/`).
 6. Activate WooCommerce, then this repo's `hasna-shoes` theme, from wp-admin.
+7. Install the French language pack: Settings → General → Site Language → "Français". This installs both WordPress core's and WooCommerce's French translations — without it, core/WooCommerce strings (search results, sorting labels, breadcrumbs, etc.) render in English even though every string this theme writes itself is already French.
 
 Local dev URL used during this build: `http://localhost:8080/hasna-shoes/` (this machine's XAMPP Apache listens on port 8080).
 
