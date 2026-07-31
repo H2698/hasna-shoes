@@ -25,8 +25,28 @@ function hasna_homepage_categories() {
 
 	$out = array();
 	foreach ( $slots as $slug => $label ) {
-		$term  = get_term_by( 'slug', $slug, 'product_cat' );
+		/*
+		 * get_term_by() is silently scoped to the *current* language by
+		 * Polylang, but $slug here is always the default-language
+		 * (French) slug — on the English/Arabic homepage this lookup
+		 * found nothing, silently breaking the category tile links.
+		 * 'lang' => 'fr' forces the lookup into the right language.
+		 */
+		$terms = get_terms( array(
+			'taxonomy'   => 'product_cat',
+			'slug'       => $slug,
+			'lang'       => 'fr',
+			'hide_empty' => false,
+		) );
+		$term  = ( ! is_wp_error( $terms ) && ! empty( $terms ) ) ? $terms[0] : null;
 		$image = HASNA_THEME_URI . '/assets/img/categories/' . $slug . '.webp';
+
+		if ( $term && ! is_wp_error( $term ) && function_exists( 'pll_get_term' ) ) {
+			$translated_id = pll_get_term( $term->term_id );
+			if ( $translated_id ) {
+				$term = get_term( $translated_id, 'product_cat' );
+			}
+		}
 
 		if ( $term && ! is_wp_error( $term ) ) {
 			$thumb_id = get_term_meta( $term->term_id, 'thumbnail_id', true );

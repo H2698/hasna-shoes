@@ -21,10 +21,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php if ( has_nav_menu( 'footer-boutique' ) ) : ?>
 						<?php wp_nav_menu( array( 'theme_location' => 'footer-boutique', 'container' => false, 'menu_class' => '', 'depth' => 1, 'items_wrap' => '%3$s' ) ); ?>
 					<?php else : ?>
-						<a href="<?php echo esc_url( home_url( '/produit-categorie/talons/' ) ); ?>"><?php esc_html_e( 'Talons', 'hasna-shoes' ); ?></a>
-						<a href="<?php echo esc_url( home_url( '/produit-categorie/sandales/' ) ); ?>"><?php esc_html_e( 'Sandales', 'hasna-shoes' ); ?></a>
-						<a href="<?php echo esc_url( home_url( '/produit-categorie/confort/' ) ); ?>"><?php esc_html_e( 'Confort', 'hasna-shoes' ); ?></a>
-						<a href="<?php echo esc_url( home_url( '/produit-categorie/plates/' ) ); ?>"><?php esc_html_e( 'Plates', 'hasna-shoes' ); ?></a>
+						<a href="<?php echo esc_url( hasna_category_url( 'talons' ) ); ?>"><?php esc_html_e( 'Talons', 'hasna-shoes' ); ?></a>
+						<a href="<?php echo esc_url( hasna_category_url( 'sandales' ) ); ?>"><?php esc_html_e( 'Sandales', 'hasna-shoes' ); ?></a>
+						<a href="<?php echo esc_url( hasna_category_url( 'confort' ) ); ?>"><?php esc_html_e( 'Confort', 'hasna-shoes' ); ?></a>
+						<a href="<?php echo esc_url( hasna_category_url( 'plates' ) ); ?>"><?php esc_html_e( 'Plates', 'hasna-shoes' ); ?></a>
 						<a href="#produits"><?php esc_html_e( 'Nouveautés', 'hasna-shoes' ); ?></a>
 					<?php endif; ?>
 				</div>
@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<a href="#tailles"><?php esc_html_e( 'Guide des tailles', 'hasna-shoes' ); ?></a>
 					<a href="#entretien"><?php esc_html_e( 'Entretien', 'hasna-shoes' ); ?></a>
 					<a href="#faq"><?php esc_html_e( 'FAQ', 'hasna-shoes' ); ?></a>
-					<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php esc_html_e( 'Nous contacter', 'hasna-shoes' ); ?></a>
+					<a href="<?php echo esc_url( hasna_contact_url() ); ?>"><?php esc_html_e( 'Nous contacter', 'hasna-shoes' ); ?></a>
 				</div>
 
 				<div class="hs-footer__col">
