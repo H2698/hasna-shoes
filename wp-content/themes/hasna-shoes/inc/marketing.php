@@ -142,16 +142,6 @@ function hasna_capi_send( $event_name, $event_id, $custom_data = array(), $user_
 	) );
 }
 
-function hasna_get_client_ip() {
-	foreach ( array( 'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR' ) as $key ) {
-		if ( ! empty( $_SERVER[ $key ] ) ) {
-			$ip = explode( ',', sanitize_text_field( wp_unslash( $_SERVER[ $key ] ) ) )[0];
-			return trim( $ip );
-		}
-	}
-	return '';
-}
-
 function hasna_hash( $value ) {
 	return $value ? hash( 'sha256', strtolower( trim( $value ) ) ) : null;
 }
