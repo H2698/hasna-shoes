@@ -408,10 +408,18 @@ input[type="radio"], input[type="checkbox"] { accent-color: var(--g); }
 .hs-wc-main { padding: clamp(20px, 3vw, 36px) clamp(16px, 3vw, 40px) clamp(60px, 6vw, 90px); }
 .hs-wc-main > .hs-breadcrumb { max-width: var(--container); margin: 0 auto 20px; }
 
-.woocommerce div.product {
-	max-width: var(--container); margin: 0 auto; position: relative;
-	display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(30px, 4vw, 64px); align-items: start;
-}
+.woocommerce div.product { max-width: var(--container); margin: 0 auto; position: relative; }
+
+/*
+ * Gallery + summary live in their own grid (.hs-product-top, added via our
+ * woocommerce/content-single-product.php override) rather than making
+ * div.product itself the grid. div.product also contains the tabs/upsells/
+ * related-products sections as siblings of .summary — if the sticky panel's
+ * containing block were the whole (much taller) div.product, it would keep
+ * sticking well past the gallery and visibly overlap the tabs/related
+ * sections while scrolling.
+ */
+.hs-product-top { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(30px, 4vw, 64px); align-items: start; }
 .woocommerce div.product .woocommerce-product-gallery { position: relative; }
 .woocommerce-product-gallery__wrapper { margin: 0; padding: 0; list-style: none; background: var(--surface); }
 .woocommerce-product-gallery__image img { width: 100%; height: auto; aspect-ratio: 1/1.05; object-fit: contain; background: var(--surface); }
@@ -420,7 +428,7 @@ input[type="radio"], input[type="checkbox"] { accent-color: var(--g); }
 .woocommerce div.product .flex-control-thumbs img { border: 1px solid rgba(17, 17, 17, .1); opacity: .7; transition: opacity .3s, border-color .3s; background: var(--surface); aspect-ratio: 1; object-fit: contain; }
 .woocommerce div.product .flex-control-thumbs img.flex-active, .woocommerce div.product .flex-control-thumbs img:hover { opacity: 1; border-color: var(--g); }
 
-.woocommerce div.product .summary { position: sticky; top: calc(66px + 32px + 24px); }
+.woocommerce div.product .summary { position: sticky; top: calc(66px + 32px + 24px); align-self: start; }
 .product_title.entry-title { font-family: var(--font-heading); font-weight: 400; font-size: clamp(26px, 2.6vw, 36px); color: var(--ink-2); margin: 0 0 14px; line-height: 1.15; }
 .woocommerce div.product p.price, .woocommerce div.product span.price { font-family: var(--font-heading); font-size: 22px; font-weight: 500; color: var(--charcoal-2); display: block; margin: 0 0 20px; }
 .woocommerce div.product p.price ins, .woocommerce div.product span.price ins { text-decoration: none; color: var(--o); margin-inline-start: 8px; }
@@ -460,7 +468,7 @@ input[type="radio"], input[type="checkbox"] { accent-color: var(--g); }
 
 .hs-delivery-note { display: flex; align-items: center; gap: 10px; margin-top: 18px; font-size: 12px; color: var(--stone); }
 
-.woocommerce-tabs { max-width: var(--container); margin: clamp(50px, 6vw, 80px) auto 0; grid-column: 1 / -1; }
+.woocommerce-tabs { max-width: var(--container); margin: clamp(50px, 6vw, 80px) auto 0; }
 .woocommerce-tabs ul.tabs { display: flex; gap: clamp(20px, 3vw, 40px); list-style: none; padding: 0; margin: 0 0 30px; border-bottom: 1px solid rgba(17, 17, 17, .1); }
 .woocommerce-tabs ul.tabs li { padding-bottom: 14px; }
 .woocommerce-tabs ul.tabs li a { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--stone); }
@@ -471,7 +479,7 @@ input[type="radio"], input[type="checkbox"] { accent-color: var(--g); }
 .woocommerce-tabs table.shop_attributes th, .woocommerce-tabs table.shop_attributes td { text-align: start; padding: 10px 0; border-bottom: 1px solid rgba(17, 17, 17, .06); font-size: 13px; font-weight: 300; }
 .woocommerce-tabs table.shop_attributes th { font-weight: 500; width: 160px; color: var(--ink-3); }
 
-.related.products, .upsells.products { max-width: var(--container); margin: clamp(60px, 6vw, 90px) auto 0; grid-column: 1 / -1; }
+.related.products, .upsells.products { max-width: var(--container); margin: clamp(60px, 6vw, 90px) auto 0; }
 .related.products > h2, .upsells.products > h2 { font-family: var(--font-heading); font-weight: 400; font-size: clamp(22px, 2.4vw, 30px); text-align: center; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); margin: 0 0 30px; }
 .related.products ul.products, .upsells.products ul.products { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(18px, 2vw, 26px); list-style: none; padding: 0; margin: 0; }
 
@@ -564,7 +572,7 @@ input[type="radio"], input[type="checkbox"] { accent-color: var(--g); }
 	.hs-categories__grid { grid-template-columns: repeat(3, 1fr); }
 	.hs-rail { grid-auto-columns: calc((100% - clamp(14px,2vw,26px)) / 2); }
 	.hs-shop__grid { grid-template-columns: repeat(3, 1fr); }
-	.woocommerce div.product { grid-template-columns: 1fr; }
+	.hs-product-top { grid-template-columns: 1fr; }
 	.woocommerce div.product .summary { position: static; }
 	.related.products ul.products, .upsells.products ul.products { grid-template-columns: repeat(3, 1fr); }
 	.hs-banner__inner { grid-template-columns: 1fr; text-align: center; }
