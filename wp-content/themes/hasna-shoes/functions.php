@@ -124,6 +124,7 @@ add_action( 'wp_enqueue_scripts', 'hasna_dequeue_block_assets', 20 );
 /**
  * WooCommerce: guest checkout, COD-only, admin-manageable content, hooks.
  */
+require HASNA_THEME_DIR . '/inc/security.php';
 require HASNA_THEME_DIR . '/inc/woocommerce-setup.php';
 require HASNA_THEME_DIR . '/inc/woocommerce-hooks.php';
 require HASNA_THEME_DIR . '/inc/template-tags.php';

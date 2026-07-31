@@ -134,9 +134,9 @@ Polylang with three languages (fr default, en, ar). Arabic gets `dir="rtl"` at `
 - **Purchase fires exactly once per order**: guarded by an `_hasna_purchase_tracked` order meta flag, since the thank-you page can be reloaded/revisited. Verified by reloading the same order-received URL and confirming the script block is absent the second time.
 - **GA4** (`gtag.js`) and **GTM** (container snippet) are independent optional fields — either, both, or neither can be configured; GA4's own automatic `page_view` covers PageView, and the same event calls fire alongside the Pixel ones (`view_item`, `search`, `add_to_cart`, `begin_checkout`, `purchase`).
 
-## 9. Security baseline (established from commit 1, expanded at M6)
+## 9. Security baseline (established from commit 1, completed at M6)
 
-Already in place: `wp-config.php` hardening (`DISALLOW_FILE_EDIT`, debug logged not displayed, fresh unique salts, non-default `hs_` table prefix), pretty-permalink `.htaccess`. Planned for M6: REST API endpoint restrictions, nonce/capability checks on every custom AJAX handler, `esc_html`/`esc_attr`/`wp_kses` output escaping audit across all custom templates, security headers (CSP/X-Frame-Options/etc.), login hardening (rename/limit wp-admin access surface, rate limiting), file-permission review, and a documented backup strategy — written up as `security-audit.md`.
+`wp-config.php` hardening (`DISALLOW_FILE_EDIT`, `DISALLOW_UNFILTERED_HTML`, debug logged not displayed, fresh unique salts, non-default `hs_` table prefix) plus everything in `inc/security.php`: login brute-force rate limiting, generalized login error messages, username-enumeration blocking (both `?author=N` and the REST users endpoint), XML-RPC disabled, security headers, AJAX rate limiting, and REST API tightening. Full write-up — including what was audited in the existing code (clean: no raw SQL, all output already escaped, all AJAX already nonce-protected) and what's deliberately deferred to real hosting (SSL, file permissions, backups) — in **`security-audit.md`**.
 
 ## 10. Deployment (M9, not executed against a live server in this phase)
 
