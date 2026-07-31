@@ -132,3 +132,4 @@ require HASNA_THEME_DIR . '/inc/single-product.php';
 require HASNA_THEME_DIR . '/inc/contact.php';
 require HASNA_THEME_DIR . '/inc/admin-dashboard.php';
 require HASNA_THEME_DIR . '/inc/admin-settings.php';
+require HASNA_THEME_DIR . '/inc/marketing.php';
