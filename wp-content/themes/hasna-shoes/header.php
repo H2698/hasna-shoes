@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 	<header id="hs-header" class="hs-header">
-		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="hs-logo" aria-label="<?php bloginfo( 'name' ); ?>">
+		<a href="<?php echo esc_url( function_exists( 'pll_home_url' ) ? pll_home_url() : home_url( '/' ) ); ?>" class="hs-logo" aria-label="<?php bloginfo( 'name' ); ?>">
 			<?php if ( has_custom_logo() ) : ?>
 				<?php the_custom_logo(); ?>
 			<?php else : ?>
@@ -53,6 +53,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 		?>
 
 		<div class="hs-header__actions">
+			<?php if ( function_exists( 'pll_the_languages' ) ) : ?>
+				<?php $hs_languages = pll_the_languages( array( 'show_flags' => 0, 'show_names' => 1, 'raw' => 1 ) ); ?>
+				<?php if ( $hs_languages ) : ?>
+					<div class="hs-lang-switch hs-lang-switch--header">
+						<?php foreach ( $hs_languages as $hs_lang ) : ?>
+							<a href="<?php echo esc_url( $hs_lang['url'] ); ?>" lang="<?php echo esc_attr( $hs_lang['locale'] ); ?>" class="<?php echo $hs_lang['current_lang'] ? 'is-current' : ''; ?>" <?php echo $hs_lang['current_lang'] ? 'aria-current="true"' : ''; ?>><?php echo esc_html( $hs_lang['name'] ); ?></a>
+						<?php endforeach; ?>
+					</div>
+				<?php endif; ?>
+			<?php endif; ?>
 			<button type="button" class="hs-icon-btn" data-search-toggle aria-expanded="false" aria-controls="hs-search-panel" aria-label="<?php esc_attr_e( 'Recherche', 'hasna-shoes' ); ?>"><?php echo hasna_icon( 'search' ); ?></button>
 			<a href="<?php echo esc_url( function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'myaccount' ) : '#compte' ); ?>" class="hs-icon-btn" aria-label="<?php esc_attr_e( 'Compte', 'hasna-shoes' ); ?>"><?php echo hasna_icon( 'account' ); ?></a>
 			<a href="<?php echo esc_url( function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : '#panier' ); ?>" class="hs-icon-btn hs-cart-link" aria-label="<?php esc_attr_e( 'Panier', 'hasna-shoes' ); ?>">
