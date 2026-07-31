@@ -125,8 +125,14 @@ Polylang with three languages (fr default, en, ar). Arabic gets `dir="rtl"` at `
 
 ## 8. Marketing/analytics (M5)
 
-Meta Pixel + Conversions API and GA4/GTM fired from WooCommerce action hooks:
-`woocommerce_after_single_product` → ViewContent, cart AJAX fragments → AddToCart, `woocommerce_before_checkout_form` → InitiateCheckout, `woocommerce_thankyou` → Purchase. Pixel ID stored as an ACF options-page field (admin-editable, per brief).
+`inc/marketing.php`. Everything below is **inert until the corresponding field on Réglages → Marketing & Analytics is filled in** — verified by checking `typeof fbq`/`typeof gtag` are `undefined` with the fields empty. No placeholder/fake IDs ever committed or left configured.
+
+- **Meta Pixel**: base code in `wp_head` (fires PageView automatically) + events: `ViewContent` (single product), `Search` (search results), `AddToCart`, `InitiateCheckout` (checkout page, only when the cart isn't empty), `Purchase` (thank-you page). All use real product/order data (price, content_ids, currency) — nothing hardcoded.
+- **Meta Conversions API**: optional (separate access-token field) — sends the same events server-side via `wp_remote_post` to `graph.facebook.com`, non-blocking. Advanced-matching customer data (email/phone) is SHA-256 hashed before sending, per Meta's API requirement (they reject raw PII for those fields).
+- **AddToCart specifically needed two code paths**, because our catalog is 100% variable products: WooCommerce's classic (non-AJAX) variation-form submit redirects back to the product page with `?added-to-cart={id}`, so the browser-side event fires from that query var; a generic `added_to_cart` jQuery listener is also wired for if/when simple products are ever added. The CAPI side hooks `woocommerce_add_to_cart` directly, which fires reliably for both flows.
+- **Event dedup** (Pixel vs. CAPI double-counting the same real-world action): both sides send a matching `event_id`. For `Purchase` this is trivial (`purchase_{order_id}`, both fired from data available at that point). For `AddToCart` the two calls happen in *different HTTP requests* (the add-to-cart POST vs. the following page-load GET) with no shared PHP state, so the ID is derived from data both sides have — product ID + WooCommerce session ID, deliberately **without** a timestamp or variation ID (WooCommerce's redirect only carries the parent product ID, not which variation was added) — trades variation-level precision for a guaranteed match. Verified end-to-end: added a real item to cart, confirmed the exact `content_ids`/`value`/`eventID` values appear in the rendered page source (not just "no errors" — actual expected data).
+- **Purchase fires exactly once per order**: guarded by an `_hasna_purchase_tracked` order meta flag, since the thank-you page can be reloaded/revisited. Verified by reloading the same order-received URL and confirming the script block is absent the second time.
+- **GA4** (`gtag.js`) and **GTM** (container snippet) are independent optional fields — either, both, or neither can be configured; GA4's own automatic `page_view` covers PageView, and the same event calls fire alongside the Pixel ones (`view_item`, `search`, `add_to_cart`, `begin_checkout`, `purchase`).
 
 ## 9. Security baseline (established from commit 1, expanded at M6)
 

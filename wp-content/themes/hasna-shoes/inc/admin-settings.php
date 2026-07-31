@@ -28,7 +28,9 @@ add_action( 'admin_init', function () {
 	register_setting( 'hasna_settings', 'hasna_contact_email', array( 'type' => 'string', 'sanitize_callback' => 'sanitize_email', 'default' => 'contact@hasnashoes.tn' ) );
 	register_setting( 'hasna_settings', 'hasna_banner_image_id', array( 'type' => 'integer', 'sanitize_callback' => 'absint', 'default' => 0 ) );
 	register_setting( 'hasna_settings', 'hasna_meta_pixel_id', array( 'type' => 'string', 'sanitize_callback' => 'sanitize_text_field', 'default' => '' ) );
+	register_setting( 'hasna_settings', 'hasna_meta_capi_token', array( 'type' => 'string', 'sanitize_callback' => 'sanitize_text_field', 'default' => '' ) );
 	register_setting( 'hasna_settings', 'hasna_ga4_id', array( 'type' => 'string', 'sanitize_callback' => 'sanitize_text_field', 'default' => '' ) );
+	register_setting( 'hasna_settings', 'hasna_gtm_id', array( 'type' => 'string', 'sanitize_callback' => 'sanitize_text_field', 'default' => '' ) );
 } );
 
 function hasna_render_settings_page() {
@@ -67,15 +69,32 @@ function hasna_render_settings_page() {
 					</td>
 				</tr>
 				<tr>
+					<th scope="row" colspan="2"><h2 style="margin-bottom:0;"><?php esc_html_e( 'Marketing & Analytics', 'hasna-shoes' ); ?></h2></th>
+				</tr>
+				<tr>
 					<th scope="row"><label for="hasna_meta_pixel_id"><?php esc_html_e( 'Meta Pixel ID', 'hasna-shoes' ); ?></label></th>
 					<td>
 						<input type="text" id="hasna_meta_pixel_id" name="hasna_meta_pixel_id" value="<?php echo esc_attr( get_option( 'hasna_meta_pixel_id' ) ); ?>" class="regular-text" placeholder="123456789012345">
-						<p class="description"><?php esc_html_e( 'Câblage des événements (PageView, AddToCart, Purchase…) — voir le jalon Marketing.', 'hasna-shoes' ); ?></p>
+						<p class="description"><?php esc_html_e( 'Active le Pixel et les événements PageView, ViewContent, Search, AddToCart, InitiateCheckout et Purchase dès qu\'un ID est renseigné.', 'hasna-shoes' ); ?></p>
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><label for="hasna_ga4_id"><?php esc_html_e( 'Google Analytics 4 ID', 'hasna-shoes' ); ?></label></th>
+					<th scope="row"><label for="hasna_meta_capi_token"><?php esc_html_e( 'Meta Conversions API — Jeton d\'accès', 'hasna-shoes' ); ?></label></th>
+					<td>
+						<input type="password" id="hasna_meta_capi_token" name="hasna_meta_capi_token" value="<?php echo esc_attr( get_option( 'hasna_meta_capi_token' ) ); ?>" class="regular-text" autocomplete="off">
+						<p class="description"><?php esc_html_e( 'Optionnel — jeton d\'accès système généré depuis Meta Business Manager. Envoie les mêmes événements côté serveur en plus du Pixel (déduplication automatique), pour ne rien perdre si le Pixel est bloqué côté navigateur. Sans jeton, seul le Pixel navigateur fonctionne.', 'hasna-shoes' ); ?></p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="hasna_ga4_id"><?php esc_html_e( 'Google Analytics 4 — ID de mesure', 'hasna-shoes' ); ?></label></th>
 					<td><input type="text" id="hasna_ga4_id" name="hasna_ga4_id" value="<?php echo esc_attr( get_option( 'hasna_ga4_id' ) ); ?>" class="regular-text" placeholder="G-XXXXXXXXXX"></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="hasna_gtm_id"><?php esc_html_e( 'Google Tag Manager — ID de conteneur', 'hasna-shoes' ); ?></label></th>
+					<td>
+						<input type="text" id="hasna_gtm_id" name="hasna_gtm_id" value="<?php echo esc_attr( get_option( 'hasna_gtm_id' ) ); ?>" class="regular-text" placeholder="GTM-XXXXXXX">
+						<p class="description"><?php esc_html_e( 'Optionnel, en plus de GA4 — si vous préférez gérer vos tags depuis un conteneur GTM.', 'hasna-shoes' ); ?></p>
+					</td>
 				</tr>
 			</table>
 			<?php submit_button(); ?>
